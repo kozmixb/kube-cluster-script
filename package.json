@@ -1,0 +1,34 @@
+{
+  "name": "kube-cluster-script",
+  "version": "1.0.0",
+  "description": "Setting up kubernetes cluster",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kozmixb/kube-cluster-script.git"
+  },
+  "keywords": [
+    "kubernetes",
+    "cluster",
+    "javascript",
+    "setup",
+    "script"
+  ],
+  "author": "Bence Kozma",
+  "license": "ISC",
+  "dependencies": {
+    "@kubernetes/client-node": "^0.17.1",
+    "dotenv": "^16.0.3",
+    "easy-table": "^1.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.3"
+  },
+  "bugs": {
+    "url": "https://github.com/kozmixb/kube-cluster-script/issues"
+  },
+  "homepage": "https://github.com/kozmixb/kube-cluster-script#readme"
+}
