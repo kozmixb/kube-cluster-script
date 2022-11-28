@@ -1,6 +1,6 @@
 const k8s = require('@kubernetes/client-node');
 const Table = require('easy-table');
-const services = require('../../config/services.json');
+const config = require('../../config/services.json');
 const { getNamespaceName } = require('./namespace');
 
 const kc = new k8s.KubeConfig();
@@ -8,15 +8,15 @@ kc.loadFromDefault();
 const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
 
 const createServices = async () => {
-  services.forEach((service) => {
+  await config.forEach(async (service) => {
     try {
-      k8sApi.createNamespacedService(getNamespaceName(), service);
+      await k8sApi.createNamespacedService(getNamespaceName(), service);
     } catch (err) {
       if (err.body.code === 409) {
         return;
       }
 
-      console.error(err.body.message);
+      console.log(err.body.message);
     }
   });
 };
@@ -55,10 +55,8 @@ const listServices = async () => {
   console.log();
 };
 
-const initServices = () => {
-  createServices();
-  listServices();
-};
+const initServices = async () => createServices()
+  .then(() => listServices());
 
 exports.listServices = listServices;
 exports.initServices = initServices;

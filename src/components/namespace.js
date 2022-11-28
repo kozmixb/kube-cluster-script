@@ -1,12 +1,12 @@
 const k8s = require('@kubernetes/client-node');
 const Table = require('easy-table');
-const namespace = require('../../config/namespace.json');
+const config = require('../../config/namespace.json');
 
 const kc = new k8s.KubeConfig();
 kc.loadFromDefault();
 const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
 
-const getNamespaceName = () => process.env.APP_NAMESPACE || namespace.metadata.name;
+const getNamespaceName = () => process.env.APP_NAMESPACE || config.metadata.name;
 
 const showNamespace = async () => {
   console.log('________ NAMESPACE INFO _________');
