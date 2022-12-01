@@ -1,10 +1,26 @@
 [
   {
+    "name": "testpod",
+    "image": "nginx",
+    "ports": [
+      {
+        "containerPort": 80
+      }
+    ]
+  },
+  {
     "name": "nginx",
     "image": "nginx",
     "ports": [
       {
         "containerPort": 80
+      }
+    ],
+    "volumeMounts":[
+      {
+        "name": "nginx-config",
+        "mountPath": "/etc/nginx/nginx.conf",
+        "subPath": "nginx.conf"
       }
     ]
   }

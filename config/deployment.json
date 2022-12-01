@@ -19,7 +19,15 @@
         }
       },
       "spec": {
-        "containers": []
+        "containers": [],
+        "volumes":[
+          {
+            "name": "nginx-config",
+            "configMap": {
+              "name": "confnginx"
+            }
+          }
+        ]
       }
     }
   }
