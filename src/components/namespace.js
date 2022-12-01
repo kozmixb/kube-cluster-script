@@ -8,6 +8,22 @@ const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
 
 const getNamespaceName = () => process.env.APP_NAMESPACE || config.metadata.name;
 
+const getConfig = () => {
+  if (process.env.APP_NAMESPACE) {
+    config.metadata.name = process.env.APP_NAMESPACE;
+  }
+
+  return config;
+};
+
+const createNamespace = async () => {
+  try {
+    await k8sApi.readNamespace(getNamespaceName());
+  } catch (err) {
+    k8sApi.createNamespace(getConfig());
+  }
+};
+
 const showNamespace = async () => {
   console.log('________ NAMESPACE INFO _________');
   console.log();
@@ -30,3 +46,4 @@ const showNamespace = async () => {
 
 exports.getNamespaceName = getNamespaceName;
 exports.showNamespace = showNamespace;
+exports.createNamespace = createNamespace;

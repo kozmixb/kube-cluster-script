@@ -1,16 +1,21 @@
 const k8s = require('@kubernetes/client-node');
 const Table = require('easy-table');
 const config = require('../../config/services.json');
+const configmap = require('../../config/configmap.json');
+const ingress = require('../../config/ingress.json');
 const { getNamespaceName } = require('./namespace');
 
 const kc = new k8s.KubeConfig();
 kc.loadFromDefault();
 const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
+const k8sNetworking = kc.makeApiClient(k8s.NetworkingV1Api);
 
 const createServices = async () => {
   await config.forEach(async (service) => {
     try {
+      await k8sApi.createNamespacedConfigMap(getNamespaceName(), configmap);
       await k8sApi.createNamespacedService(getNamespaceName(), service);
+      await k8sNetworking.createIngressClass(ingress);
     } catch (err) {
       if (err.body.code === 409) {
         return;
