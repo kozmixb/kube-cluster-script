@@ -1,7 +1,7 @@
 [
   {
     "metadata" : {
-      "name" : "loadbalancer"
+      "name" : "nginx-proxy"
     },
     "spec" : {
       "selector" : {
@@ -9,11 +9,12 @@
       },
       "ports" : [
         {
+          "protocol": "TCP",
           "port" : 80,
-          "targetPort" : 80
+          "targetPort" : 80,
+          "name": "nginx"
         }
-      ],
-      "type" : "NodePort"
+      ]
     }
   }
 ]

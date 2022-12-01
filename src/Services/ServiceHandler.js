@@ -1,40 +1,42 @@
 const k8s = require('@kubernetes/client-node');
 const Table = require('easy-table');
-const config = require('../../config/services.json');
-const configmap = require('../../config/configmap.json');
-const ingress = require('../../config/ingress.json');
-const { getNamespaceName } = require('./namespace');
+const { getNamespaceName } = require('../Components/NamespaceV1');
+const { getConfigs } = require('../Components/ServiceV1');
 
 const kc = new k8s.KubeConfig();
 kc.loadFromDefault();
 const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
-const k8sNetworking = kc.makeApiClient(k8s.NetworkingV1Api);
 
 const createServices = async () => {
-  await config.forEach(async (service) => {
-    try {
-      await k8sApi.createNamespacedConfigMap(getNamespaceName(), configmap);
-      await k8sApi.createNamespacedService(getNamespaceName(), service);
-      await k8sNetworking.createIngressClass(ingress);
-    } catch (err) {
-      if (err.body.code === 409) {
-        return;
-      }
+  console.log('\x1b[32mCreating services\x1b[0m');
 
-      console.log(err.body.message);
-    }
-  });
+  await Promise.all(
+    getConfigs().map(async (service) => {
+      try {
+        await k8sApi.createNamespacedService(getNamespaceName(), service);
+        console.log(`\x1b[33mService: ${service.metadata.name} was successfully created\x1b[0m`);
+      } catch (err) {
+        if (err.body.code === 409) {
+          return;
+        }
+
+        console.log(`\x1b[31mError: ${err.body.message}\x1b[0m`);
+      }
+    }),
+  );
+
+  console.log();
 };
 
 const listServices = async () => {
-  console.log('________ RUNNING SERVICES ________');
+  console.log('_______ RUNNING SERVICES ________');
   console.log();
 
   try {
     const res = await k8sApi.listNamespacedService(getNamespaceName());
 
     if (res.body.items.length === 0) {
-      console.log('No services found');
+      console.log('\x1b[33mNo services found\x1b[0m');
       console.log();
       return;
     }
@@ -54,15 +56,11 @@ const listServices = async () => {
 
     console.log(t.toString());
   } catch (err) {
-    console.log(err.body.message);
+    console.log(`\x1b[31mError: ${err.body.message}\x1b[0m`);
   }
 
   console.log();
 };
 
-const initServices = async () => createServices()
-  .then(() => listServices());
-
 exports.listServices = listServices;
-exports.initServices = initServices;
 exports.createServices = createServices;
