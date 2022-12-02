@@ -13,9 +13,14 @@
           "paths": [
             {
               "path": "/",
+              "pathType": "Prefix",
               "backend": {
-                "serviceName": "nginx-custom",
-                "servicePort": 80
+                "service" : {
+                  "name": "nginx-custom",
+                  "port": {
+                    "number": 80
+                  }
+                }
               }
             }
           ]

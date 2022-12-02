@@ -1,11 +1,21 @@
 require('dotenv').config();
-const { createNamespace } = require('./components/namespace');
-const { initServices } = require('./components/services');
-const { deploy } = require('./components/deployment');
+const { createConfigs } = require('./Services/ConfigHandler');
+const { createDeployment } = require('./Services/DeploymentHandler');
+const { createIngress } = require('./Services/IngressHandler');
+const { createNamespace, deleteNamespace } = require('./Services/NamespaceHandler');
+const { createServices } = require('./Services/ServiceHandler');
 
-console.clear();
+deleteNamespace()
+  .catch((err) => {
+    if (err.statusCode === 404) return;
 
-createNamespace()
-  .then(() => initServices)
-  .then(() => deploy())
-  .catch((err) => console.log(err));
+    console.log(`\x1b[31mError: ${err.body.message}\x1b[0m`);
+  })
+  .then(() => createNamespace())
+  .then(() => createConfigs())
+  .then(() => createDeployment())
+  .then(() => createServices())
+  .then(() => createIngress())
+  .catch((err) => {
+    console.log(err);
+  });
