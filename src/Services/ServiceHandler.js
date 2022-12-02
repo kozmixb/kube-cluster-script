@@ -47,7 +47,6 @@ const listServices = async () => {
       t.cell('Name', item.metadata.name);
       t.cell('Labels', item.metadata.labels ? Object.values(item.metadata.labels) : '');
       t.cell('Selector', Object.values(item.spec.selector).join(','));
-      t.cell('Namespace', item.metadata.namespace);
       t.cell('Resource Version', item.metadata.resourceVersion);
       t.cell('External IPs', item.spec.externalIps?.join(','));
       t.cell('Ports', item.spec.ports.map((port) => port.targetPort).join(','));
