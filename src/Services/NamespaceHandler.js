@@ -55,7 +55,7 @@ const showNamespace = async () => {
 
     console.log(t.toString());
   } catch (err) {
-    console.log(`\x1b[31mError: ${err.body.message}\x1b[0m`);
+    console.log(`\x1b[33mNamespace [${getNamespaceName()}] not found\x1b[0m`);
   }
 
   console.log();
