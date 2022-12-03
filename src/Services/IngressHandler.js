@@ -1,6 +1,6 @@
 const k8s = require('@kubernetes/client-node');
 const { getConfig } = require('../Components/IngressV1');
-const { getNamespaceName } = require('../Components/NamespaceV1');
+const { getNamespaceName } = require('../Components/Namespace');
 
 const kc = new k8s.KubeConfig();
 kc.loadFromDefault();

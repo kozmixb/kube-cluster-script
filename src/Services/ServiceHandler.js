@@ -1,6 +1,6 @@
 const k8s = require('@kubernetes/client-node');
 const Table = require('easy-table');
-const { getNamespaceName } = require('../Components/NamespaceV1');
+const { getNamespaceName } = require('../Components/Namespace');
 const { getConfigs } = require('../Components/ServiceV1');
 
 const kc = new k8s.KubeConfig();

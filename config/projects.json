@@ -1,0 +1,12 @@
+[
+  {
+    "subdomain": "new",
+    "image": "nginx",
+    "port": 80
+  },
+  {
+    "subdomain": "new2",
+    "image": "httpd",
+    "port": 80
+  }
+]
