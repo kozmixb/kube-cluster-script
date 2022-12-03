@@ -1,5 +1,6 @@
 require('dotenv').config();
 import { createDeployment } from './Services/DeploymentHandler';
+import { createIngress } from './Services/IngressHandler';
 import { createNamespace } from './Services/NamespaceHandler';
 import { createService } from './Services/ServiceHandler';
 import { Project } from './Types/Project';
@@ -13,6 +14,9 @@ createNamespace()
   .then(() => Promise.all(
       projects.map(async (project) => await createService(project))
   ))
+  .then(() => {
+      createIngress(projects);
+  })
   .catch((err) => {
     if (err.body) {
       console.log(err.body);
