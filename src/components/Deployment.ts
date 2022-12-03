@@ -1,7 +1,7 @@
 import { V1Deployment } from "@kubernetes/client-node";
 import { Project } from "../Types/Project"
 
-class Deployment {
+export default class Deployment {
   private project: Project;
 
   public constructor(project: Project) {
@@ -23,9 +23,6 @@ class Deployment {
       },
       spec: {
         replicas: 1,
-        strategy: {
-          type: "RollingUpdate"
-        },
         selector: {
           matchLabels: {
             app: this.label()
@@ -51,5 +48,3 @@ class Deployment {
     }
   }
 };
-
-export default Deployment;

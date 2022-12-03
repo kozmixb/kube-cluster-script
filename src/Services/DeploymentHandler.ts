@@ -15,7 +15,6 @@ const createDeployment = async (project: Project) => {
 
   try {
     const res = await k8sApp.createNamespacedDeployment(ns.name(), dp.config());
-
     outputResponse(res.body);
   } catch (err) {
     if (err.body.code === 409) {
@@ -24,6 +23,7 @@ const createDeployment = async (project: Project) => {
       return;
     }
 
+    throw err;
   }
 };
 
