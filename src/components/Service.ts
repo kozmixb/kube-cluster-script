@@ -27,7 +27,7 @@ export default class Service {
         },
         ports: [
           {
-            protocol: "TCP",
+            protocol: this.protocol(),
             port: this.project.port,
             targetPort: this.project.port,
             name: this.project.subdomain
@@ -35,5 +35,9 @@ export default class Service {
         ]
       }
     };
+  }
+
+  public protocol(): string {
+    return this.project.protocol || 'TCP';
   }
 }
