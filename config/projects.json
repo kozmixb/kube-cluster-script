@@ -1,12 +1,27 @@
 [
   {
-    "subdomain": "new",
+    "subdomain": "nginx",
     "image": "nginx",
     "port": 80
   },
   {
-    "subdomain": "new2",
+    "subdomain": "http",
     "image": "httpd",
     "port": 80
+  },
+  {
+    "subdomain": "redis",
+    "image": "redis",
+    "port": 6379
+  },
+  {
+    "subdomain": "mariadb",
+    "image": "mariadb",
+    "port": 3306,
+    "env": {
+      "MARIADB_USER": "test",
+      "MARIADB_PASSWORD": "secret",
+      "MARIADB_ROOT_PASSWORD": "secret"
+    }
   }
 ]

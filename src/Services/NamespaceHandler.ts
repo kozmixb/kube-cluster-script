@@ -9,7 +9,7 @@ const k8sApi = kc.makeApiClient(CoreV1Api);
 const createNamespace = async () => {
   try {
     const res = await k8sApi.createNamespace(ns.config());
-    console.log(`\x1b[33mNamespace ${ns.name()} is: ${res.body.status?.phase}\x1b[0m`);
+    console.log(`\x1b[32mNamespace ${ns.name()} is: ${res.body.status?.phase}\x1b[0m`);
   } catch (err) {
     if (err.body.code !== 409) {
       throw err;

@@ -14,12 +14,12 @@ const createDeployment = async (project: Project) => {
   const dp = new Deployment(project);
 
   try {
-    const res = await k8sApp.createNamespacedDeployment(ns.name(), dp.config());
-    outputResponse(res.body);
+    await k8sApp.createNamespacedDeployment(ns.name(), dp.config());
+    console.log(`\x1b[32m Creating deployment ${dp.name()} \x1b[0m`);
   } catch (err) {
     if (err.body.code === 409) {
-      const res = await k8sApp.replaceNamespacedDeployment(dp.name(), ns.name(), dp.config());
-      outputResponse(res.body);
+      await k8sApp.replaceNamespacedDeployment(dp.name(), ns.name(), dp.config());
+      console.log(`\x1b[32m Patching deployment ${dp.name()} \x1b[0m`);
       return;
     }
 
@@ -58,10 +58,5 @@ const listDeployments = async () => {
 
   console.log();
 };
-
-const outputResponse = (body: V1Deployment) => {
-  const getLastStatus = body.status?.conditions?.slice(-1)[0].message || 'undefined';
-  console.log(`\x1b[32m ${getLastStatus} \x1b[0m`);
-} 
 
 export {createDeployment, listDeployments};

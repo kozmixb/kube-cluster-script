@@ -1,5 +1,6 @@
 export interface Project {
   subdomain: string,
   image: string,
-  port: number
+  port: number,
+  env?: {[key: string]: string}
 }

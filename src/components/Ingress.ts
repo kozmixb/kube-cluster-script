@@ -20,6 +20,10 @@ export default class Ingress {
     return {
       metadata: {
         name: this.name(),
+        annotations: {
+          'kubernetes.io/ingress.class': 'nginx',
+          'nginx.ingress.kubernetes.io/ssl-passthrough': 'true'
+        }
       },
       spec: {
         rules: this.projects.map((project) => this.generateHost(project))

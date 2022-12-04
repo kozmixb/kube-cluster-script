@@ -1,4 +1,4 @@
-import { V1Deployment } from "@kubernetes/client-node";
+import { V1Deployment, V1EnvVar } from "@kubernetes/client-node";
 import { Project } from "../Types/Project"
 
 export default class Deployment {
@@ -14,6 +14,17 @@ export default class Deployment {
 
   public label(): string {
     return `${this.project.subdomain}`;
+  }
+
+  public env(): V1EnvVar[] {
+    const env = typeof this.project.env === 'object' ? this.project.env : []; 
+
+    return Object.entries(env).map(([cKey, cValue]) => {
+      return {
+        name: `${cKey}`,
+        value: `${cValue}`
+      }
+    });
   }
 
   public config(): V1Deployment {
@@ -38,7 +49,8 @@ export default class Deployment {
             containers: [
               {
                 name: this.project.subdomain,
-                image: this.project.image
+                image: this.project.image,
+                env: this.env()
               }
             ],
             volumes:[]
