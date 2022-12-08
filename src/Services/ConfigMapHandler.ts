@@ -11,11 +11,11 @@ const createTcpServiceConfigMap = async (projects: Project[]) => {
   
   try {
     await k8sApi.createNamespacedConfigMap('ingress-nginx', cm.config());
-    console.log(`\x1b[32m Creating ingress ${cm.name()} \x1b[0m`);
+    console.log(`\x1b[32m Creating configmap ${cm.name()} \x1b[0m`);
   } catch (err) {
     if (err.body.code === 409) {
       await k8sApi.replaceNamespacedConfigMap(cm.name(), 'ingress-nginx', cm.config());
-      console.log(`\x1b[32m Patching ingress ${cm.name()} \x1b[0m`);
+      console.log(`\x1b[32m Patching configmap ${cm.name()} \x1b[0m`);
     }
   }
 };

@@ -9,11 +9,13 @@
     "strict": false,
     "noImplicitAny": false,
     "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule" : true,
     "allowSyntheticDefaultImports": true,
     "importHelpers": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "types": []
+    "types": ["node"],
+    "typeRoots": [ "../node_modules/@types" ]
   },
   "include": [
     "src/*",

@@ -7,6 +7,7 @@
     "up": "npx ts-node src/up.ts",
     "down": "npx ts-node src/down.ts",
     "status": "npx ts-node src/status.ts",
+    "hosts": "npx ts-node src/hosts.ts",
     "lint": "npx eslint"
   },
   "repository": {

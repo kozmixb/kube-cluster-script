@@ -23,7 +23,9 @@ export default class Service {
       },
       spec: {
         selector: {
-          app: this.label()
+          app: this.label(),
+          'app.kubernetes.io/name': 'ingress-nginx',
+          'app.kubernetes.io/part-of': 'ingress-nginx'
         },
         ports: [
           {
