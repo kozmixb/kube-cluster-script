@@ -29,7 +29,7 @@ export default class Service {
           {
             protocol: this.protocol(),
             port: this.project.port,
-            targetPort: this.project.port,
+            targetPort: this.project.container_port || this.project.port,
             name: this.project.subdomain
           }
         ]

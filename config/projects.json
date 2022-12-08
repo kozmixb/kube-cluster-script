@@ -23,5 +23,16 @@
       "MARIADB_PASSWORD": "secret",
       "MARIADB_ROOT_PASSWORD": "secret"
     }
+  },
+  {
+    "subdomain": "mariadb2",
+    "image": "mariadb",
+    "port": 3307,
+    "container_port": 3306,
+    "env": {
+      "MARIADB_USER": "test",
+      "MARIADB_PASSWORD": "secret",
+      "MARIADB_ROOT_PASSWORD": "secret"
+    }
   }
 ]
